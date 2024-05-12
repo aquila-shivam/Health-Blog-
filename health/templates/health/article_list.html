@@ -75,6 +75,21 @@
         .login-logout-link .logout-button:hover {
             background-color: #c82333;
         }
+        .add-article-button {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .add-article-button button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            border: none;
+            border-radius: 3px;
+            color: #fff;
+            cursor: pointer;
+        }
+        .add-article-button button:hover {
+            background-color: #218838;
+        }
     </style>
 </head>
 <body>
@@ -90,6 +105,11 @@
             {% endif %}
         </div>
         <h1>Health Blog - Articles</h1>
+        <div class="add-article-button">
+            {% if user.is_authenticated %}
+            <a href="{% url 'article_new' %}"><button>Add New Article</button></a>
+            {% endif %}
+        </div>
         {% for article in articles %}
         <div class="article">
             <h2><a href="{% url 'article_detail' article.pk %}">{{ article.title }}</a></h2>

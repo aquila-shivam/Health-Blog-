@@ -53,6 +53,7 @@ def article_list(request):
     articles = Article.objects.all()
     return render(request, 'health/article_list.html', {'articles': articles})
 
+@login_required
 def article_detail(request, pk):
     article = Article.objects.get(pk=pk)
     comments = Comment.objects.filter(article=article)
