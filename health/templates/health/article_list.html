@@ -1,0 +1,103 @@
+<!-- blog/templates/blog/article_list.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Health Blog - Articles</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f2f2f2;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .article {
+            padding: 20px;
+            border-bottom: 1px solid #ccc;
+        }
+        .article h2 {
+            margin-top: 0;
+        }
+        .article p {
+            color: #666;
+            margin-bottom: 5px;
+        }
+        .article p.author {
+            margin-bottom: 20px;
+        }
+        .article p.published {
+            margin-bottom: 10px;
+        }
+        .article p.content {
+            margin-bottom: 20px;
+        }
+        .article p.content:last-child {
+            margin-bottom: 0;
+        }
+        .article a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .article a:hover {
+            text-decoration: underline;
+        }
+        .login-logout-link {
+            text-align: right;
+            margin-top: 20px;
+        }
+        .login-logout-link button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 3px;
+            color: #fff;
+            cursor: pointer;
+        }
+        .login-logout-link .login-button {
+            background-color: #007bff;
+        }
+        .login-logout-link .login-button:hover {
+            background-color: #0056b3;
+        }
+        .login-logout-link .logout-button {
+            background-color: #dc3545;
+        }
+        .login-logout-link .logout-button:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="login-logout-link">
+            {% if user.is_authenticated %}
+            <form action="{% url 'logout' %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="logout-button">Logout</button>
+            </form>
+            {% else %}
+            <a href="{% url 'login' %}" class="login-button"><button style="background-color: #007bff;">Login</button></a>
+            {% endif %}
+        </div>
+        <h1>Health Blog - Articles</h1>
+        {% for article in articles %}
+        <div class="article">
+            <h2><a href="{% url 'article_detail' article.pk %}">{{ article.title }}</a></h2>
+            <p class="content">{{ article.content|truncatechars:200 }}</p>
+            <p class="author"><strong>Author:</strong> {{ article.author }}</p>
+            <p class="published"><strong>Published at:</strong> {{ article.created_at }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

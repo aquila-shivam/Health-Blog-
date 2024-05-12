@@ -1,0 +1,102 @@
+<!-- health/templates/registration/signup.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+        .signup-container {
+            max-width: 400px;
+            margin: 100px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+        }
+        form {
+            margin-top: 20px;
+        }
+        input[type="text"],
+        input[type="password"],
+        input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            box-sizing: border-box;
+        }
+        button[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            border: none;
+            border-radius: 3px;
+            color: #fff;
+            cursor: pointer;
+        }
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        .login-link {
+            text-align: center;
+            margin-top: 10px;
+        }
+        .errorlist {
+            color: red;
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <h2>Signup</h2>
+        <form method="post">
+            {% csrf_token %}
+            <label for="id_username">Username:</label>
+            {{ form.username }}
+            {% for error in form.username.errors %}
+                <ul class="errorlist">
+                    <li>{{ error }}</li>
+                </ul>
+            {% endfor %}
+            <label for="id_email">Email:</label>
+            {{ form.email }}
+            {% for error in form.email.errors %}
+                <ul class="errorlist">
+                    <li>{{ error }}</li>
+                </ul>
+            {% endfor %}
+            <label for="id_password1">Password:</label>
+            {{ form.password1 }}
+            {% for error in form.password1.errors %}
+                <ul class="errorlist">
+                    <li>{{ error }}</li>
+                </ul>
+            {% endfor %}
+            <label for="id_password2">Confirm Password:</label>
+            {{ form.password2 }}
+            {% for error in form.password2.errors %}
+                <ul class="errorlist">
+                    <li>{{ error }}</li>
+                </ul>
+            {% endfor %}
+            <button type="submit">Signup</button>
+        </form>
+        <div class="login-link">
+            Already have an account? <a href="{% url 'login' %}">Login</a>
+        </div>
+    </div>
+</body>
+</html>
